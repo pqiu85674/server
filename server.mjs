@@ -9,13 +9,14 @@ import getProducts from "./product/getProducts.mjs";
 import shopCar from "./product/shopCar.mjs";
 import CustomerShopCar from "./product/CustomerShopCar.mjs";
 import deleteShopCar from "./product/deleteShopCar.mjs";
+import ECPayGet from "./ECPay/ECPayGet.mjs";
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const whitelist = ["http://localhost:3000","http://localhost:3001"];
+const whitelist = ["http://localhost:3000", "http://localhost:3001"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -155,6 +156,39 @@ app.patch("/updateShopCar", async (req, res) => {
   const result = await shopCar(userUid, productId, price, count, size, kind);
   console.log("updateShopCar", result);
   res.json(result);
+});
+
+const { MERCHANTID, HASHKEY, HASHIV, SERVER, CLIENT } = process.env;
+
+app.get("/", (req, res) => {
+  const html = ECPayGet(MERCHANTID, HASHKEY, HASHIV, SERVER, CLIENT);
+  res.send(html);
+});
+
+app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
+
+  const data = req.body;
+
+  console.log(data);
+
+  // 進行必要的資料驗證，如檢查簽章
+  const { RtnCode, RtnMsg, TradeNo, MerchantTradeNo, CheckMacValue } = data;
+
+  // 回傳資料驗證通過後可以進行進一步處理，例如更新訂單狀態
+  console.log("RtnCode", RtnCode);
+  console.log("RtnMsg", RtnMsg);
+  console.log("TradeNo", TradeNo);
+  console.log("MerchantTradeNo", MerchantTradeNo);
+  console.log("CheckMacValue", CheckMacValue);
+
+  if (RtnCode === "1") {
+    console.log(`交易成功: ${TradeNo}`);
+  } else {
+    console.log(`交易失敗: ${RtnMsg}`);
+  }
+
+  // 綠界要求回傳 200 OK 確認收到
+  res.status(200).send("OK");
 });
 
 const port = process.env.PORT || 3000; // 使用 Render 提供的 PORT，若不存在則預設為 3000

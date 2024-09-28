@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
+    "ecpay-aio-node": "^0.0.5-beta3",
     "express": "^4.21.0",
     "firebase": "^10.13.1",
     "firebase-admin": "^12.5.0"
