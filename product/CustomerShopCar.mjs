@@ -11,10 +11,11 @@ async function CustomerShopCar(userUid) {
   users.forEach((user) => {
     if (user.id === userUid) {
       if (typeof user.shopCar === "object") {
-        Object.entries(user.shopCar).forEach((item) => {
+        Object.values(user.shopCar).forEach((item) => {
+          console.log(item);
           queryProduct.forEach((doc) => {
-            if (doc.id === item[0]) {
-              result.push(item[1]);
+            if (doc.id === item.productId) {
+              result.push(item);
             }
           });
         });
