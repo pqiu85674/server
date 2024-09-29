@@ -1,4 +1,4 @@
-const ecpay_payment = require("ecpay-aio-node");
+import ecpay_payment from "ecpay-aio-node";
 
 function verifyEcpayResponse(data) {
   const { RtnCode, RtnMsg, TradeNo, MerchantTradeNo, CheckMacValue } = data;
