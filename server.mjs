@@ -12,6 +12,7 @@ import deleteShopCar from "./product/deleteShopCar.mjs";
 import ECPay from "./ECPay/ECPay.mjs";
 import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
+import handleProduct from "./utils/handleProduct";
 
 const app = express();
 
@@ -167,7 +168,8 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
       const result = query_trade_info(data);
       if (result.status === "success") {
         console.log("query_trade_info success", result);
-        // deleteShopCar();
+        const orderInfo = handleProduct(result.order);
+        console.log("orderInfo", orderInfo);
       } else {
         return res.status(500).send("伺服器發生錯誤");
       }
