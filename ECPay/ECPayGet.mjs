@@ -1,11 +1,10 @@
 import ecpay_payment from "ecpay-aio-node";
 
-function ECPayGet(MERCHANTID, HASHKEY, HASHIV, SERVER, CLIENT) {
+function ECPayGet(MERCHANTID, HASHKEY, HASHIV, HOST) {
   console.log("MERCHANTID", MERCHANTID);
   console.log("HASHKEY", HASHKEY);
   console.log("HASHIV", HASHIV);
-  console.log("SERVER", SERVER);
-  console.log("CLIENT", CLIENT);
+  console.log("HOST", HOST);
   const MerchantTradeDate = new Date().toLocaleString("zh-TW", {
     year: "numeric",
     month: "2-digit",
@@ -24,8 +23,8 @@ function ECPayGet(MERCHANTID, HASHKEY, HASHIV, SERVER, CLIENT) {
     TotalAmount: "100",
     TradeDesc: "測試交易描述",
     ItemName: "測試商品等",
-    ReturnURL: `${SERVER}/return`,
-    ClientBackURL: `${CLIENT}/clientReturn`,
+    ReturnURL: `${HOST}/return`,
+    ClientBackURL: `${HOST}/clientReturn`,
   };
 
   let options = {

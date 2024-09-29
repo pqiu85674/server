@@ -158,15 +158,14 @@ app.patch("/updateShopCar", async (req, res) => {
   res.json(result);
 });
 
-const { MERCHANTID, HASHKEY, HASHIV, SERVER, CLIENT } = process.env;
+const { MERCHANTID, HASHKEY, HASHIV, HOST, CLIENT } = process.env;
 
 app.get("/", (req, res) => {
-  const html = ECPayGet(MERCHANTID, HASHKEY, HASHIV, SERVER, CLIENT);
+  const html = ECPayGet(MERCHANTID, HASHKEY, HASHIV, HOST);
   res.send(html);
 });
 
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
-
   const data = req.body;
 
   console.log(data);
@@ -189,6 +188,20 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
 
   // 綠界要求回傳 200 OK 確認收到
   res.status(200).send("OK");
+});
+
+// 用戶交易完成後的轉址
+router.get("/clientReturn", (req, res) => {
+  console.log("clientReturn req.body:", req.body);
+  console.log("clientReturn req.query:", req.query);
+
+  // 假設前端的路徑是 /payment-success，並且你希望將 query 參數傳遞給前端
+  const redirectUrl = `${process.env.CLIENT}/clientReturn?${new URLSearchParams(
+    req.query
+  ).toString()}`;
+
+  // 重新導向至前端頁面
+  res.redirect(redirectUrl);
 });
 
 const port = process.env.PORT || 3000; // 使用 Render 提供的 PORT，若不存在則預設為 3000
