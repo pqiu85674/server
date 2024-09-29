@@ -175,6 +175,7 @@ app.post(
           const orderInfo = handleProduct(result.order);
           console.log("orderInfo", orderInfo);
           const deletePromises = orderInfo.products.map((product) => {
+            console.log(product);
             return deleteShopCar(orderInfo.CustomField1, product.productId);
           });
           await Promise.all(deletePromises);
