@@ -5,9 +5,10 @@ function verifyEcpayResponse(data) {
   console.log("綠界金流回傳資料 data:", data);
 
   const create = new ecpay_payment(options);
-
-  const isValid = create.payment_client.verify_mac(data);
+  const isValid = ecpay.payment_client.aio_check_out_verify_mac(data);
+  const isValid2 = create.payment_client.verify_mac(data);
   console.log("isValid", isValid);
+  console.log("isValid2", isValid2);
   if (isValid) {
     console.log("CheckMacValue 驗證通過");
     const { RtnCode, RtnMsg, TradeNo } = data;
