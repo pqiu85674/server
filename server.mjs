@@ -12,7 +12,7 @@ import deleteShopCar from "./product/deleteShopCar.mjs";
 import ECPay from "./ECPay/ECPay.mjs";
 import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
-// import handleProduct from "./utils/handleProduct.mjs";
+import handleProduct from "./utils/handleProduct.mjs";
 
 const app = express();
 
@@ -159,42 +159,6 @@ app.post("/ECPay", (req, res) => {
   const html = ECPay(order, userUid);
   res.send(html);
 });
-
-function handleProduct(data) {
-  const array = data.split("&");
-
-  const object = {};
-  function hadleData(item) {
-    const selectValue = item.replace(/\s+/g, "");
-    // console.log("selectValue", selectValue);
-    return {
-      productId: selectValue.split("X")[0],
-      count: Number(selectValue.split("X")[1].split("(")[0]),
-      price: Number(selectValue.split("X")[1].split("(")[1].replace(")", "")),
-    };
-  }
-
-  array.forEach((item) => {
-    let products = [];
-    object[`${item.split("=")[0]}`] = item.split("=")[1];
-    if (item.indexOf("ItemName") !== -1) {
-      if (item.split("=")[1].indexOf(",") !== -1) {
-        item
-          .split("=")[1]
-          .split(",")
-          .forEach((product) => {
-            // console.log(product);
-            products.push(hadleData(product));
-          });
-      } else {
-        // console.log(item);
-        products.push(hadleData(item.split("=")[1]));
-      }
-      object.product = products;
-    }
-  });
-  return object;
-}
 
 app.post(
   "/return",
