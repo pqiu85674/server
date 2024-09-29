@@ -10,6 +10,7 @@ import shopCar from "./product/shopCar.mjs";
 import CustomerShopCar from "./product/CustomerShopCar.mjs";
 import deleteShopCar from "./product/deleteShopCar.mjs";
 import ECPayGet from "./ECPay/ECPayGet.mjs";
+import verifyEcpayResponse from "./ECPay/verifyEcpayResponse.mjs";
 
 const app = express();
 
@@ -61,7 +62,7 @@ app.get("/getproducts", async (req, res) => {
   let result = [];
   try {
     result = await getProducts();
-    console.log(result);
+    // console.log(result);
   } catch (error) {
     console.log(error);
   }
@@ -158,36 +159,20 @@ app.patch("/updateShopCar", async (req, res) => {
   res.json(result);
 });
 
-const { MERCHANTID, HASHKEY, HASHIV, HOST, CLIENT } = process.env;
-
 app.get("/", (req, res) => {
-  const html = ECPayGet(MERCHANTID, HASHKEY, HASHIV, HOST);
+  const html = ECPayGet();
   res.send(html);
 });
 
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   const data = req.body;
+  const response = verifyEcpayResponse(data);
 
-  console.log(data);
-
-  // 進行必要的資料驗證，如檢查簽章
-  const { RtnCode, RtnMsg, TradeNo, MerchantTradeNo, CheckMacValue } = data;
-
-  // 回傳資料驗證通過後可以進行進一步處理，例如更新訂單狀態
-  console.log("RtnCode", RtnCode);
-  console.log("RtnMsg", RtnMsg);
-  console.log("TradeNo", TradeNo);
-  console.log("MerchantTradeNo", MerchantTradeNo);
-  console.log("CheckMacValue", CheckMacValue);
-
-  if (RtnCode === "1") {
-    console.log(`交易成功: ${TradeNo}`);
+  if (response.status === "success") {
+    res.status(200).send("OK");
   } else {
-    console.log(`交易失敗: ${RtnMsg}`);
+    res.status(400).send("Invalid CheckMacValue");
   }
-
-  // 綠界要求回傳 200 OK 確認收到
-  res.status(200).send("OK");
 });
 
 // 用戶交易完成後的轉址

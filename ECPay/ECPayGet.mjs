@@ -1,6 +1,7 @@
 import ecpay_payment from "ecpay-aio-node";
+const { MERCHANTID, HASHKEY, HASHIV, HOST } = process.env;
 
-function ECPayGet(MERCHANTID, HASHKEY, HASHIV, HOST) {
+function ECPayGet() {
   console.log("MERCHANTID", MERCHANTID);
   console.log("HASHKEY", HASHKEY);
   console.log("HASHIV", HASHIV);
