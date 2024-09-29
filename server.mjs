@@ -13,6 +13,7 @@ import ECPayGet from "./ECPay/ECPay.mjs";
 import verifyEcpayResponse from "./ECPay/verifyEcpayResponse.mjs";
 import ECPay from "./ECPay/ECPay.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
+import options from "./ECPay/options.mjs";
 
 const app = express();
 
