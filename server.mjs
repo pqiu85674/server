@@ -12,7 +12,7 @@ import deleteShopCar from "./product/deleteShopCar.mjs";
 import ECPay from "./ECPay/ECPay.mjs";
 import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
-import handleProduct from "./utils/handleProduct.mjs";
+import handleProduct from "./utils/handleProduct.js";
 
 const app = express();
 
