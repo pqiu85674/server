@@ -162,13 +162,13 @@ app.post("/ECPay", (req, res) => {
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   try {
     const data = { ...req.body };
+    console.log("------------------------------------------", data);
     if (gen_chk_mac_value(data)) {
       query_trade_info(data);
       res.status(200).send("OK");
-    }else{
-      console.log("驗證失敗")
+    } else {
+      console.log("驗證失敗");
     }
-    
   } catch (error) {
     console.log("這裡錯", error);
   }
