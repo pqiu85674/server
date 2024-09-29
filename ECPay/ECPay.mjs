@@ -1,7 +1,9 @@
 import ecpay_payment from "ecpay-aio-node";
-const { MERCHANTID, HASHKEY, HASHIV, HOST } = process.env;
+import options from "./options";
 
 function ECPay(order) {
+  const { HOST } = process.env;
+
   const MerchantTradeDate = new Date().toLocaleString("zh-TW", {
     year: "numeric",
     month: "2-digit",
@@ -32,14 +34,6 @@ function ECPay(order) {
     ItemName: ItemName.join(","),
     ReturnURL: `${HOST}/return`,
     ClientBackURL: `${HOST}/clientReturn`,
-  };
-
-  let options = {
-    merchantInfo: {
-      merchantID: MERCHANTID,
-      hashKey: HASHKEY,
-      hashIV: HASHIV,
-    },
   };
 
   const create = new ecpay_payment(options);

@@ -12,6 +12,7 @@ import deleteShopCar from "./product/deleteShopCar.mjs";
 import ECPayGet from "./ECPay/ECPay.mjs";
 import verifyEcpayResponse from "./ECPay/verifyEcpayResponse.mjs";
 import ECPay from "./ECPay/ECPay.mjs";
+import query_trade_info from "./ECPay/query_trade_info.mjs";
 
 const app = express();
 
@@ -168,11 +169,12 @@ app.post("/ECPay", (req, res) => {
 
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   const data = req.body;
-  
+  console.log("後端回傳的data", data);
   const response = verifyEcpayResponse(data);
 
   if (response.status === "success") {
-
+    
+    query_trade_info(data);
     //這裡做刪除shopCar裡面的資料並且新增到order當中
     res.status(200).send("OK");
   } else {
@@ -182,6 +184,7 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
+  console.log("clientReturn", res);
   const redirectUrl = `${process.env.CLIENT}/clientReturn`;
 
   // 重新導向至前端頁面
