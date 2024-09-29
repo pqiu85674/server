@@ -9,11 +9,9 @@ import getProducts from "./product/getProducts.mjs";
 import shopCar from "./product/shopCar.mjs";
 import CustomerShopCar from "./product/CustomerShopCar.mjs";
 import deleteShopCar from "./product/deleteShopCar.mjs";
-import ECPayGet from "./ECPay/ECPay.mjs";
-import verifyEcpayResponse from "./ECPay/verifyEcpayResponse.mjs";
 import ECPay from "./ECPay/ECPay.mjs";
+import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
-import options from "./ECPay/options.mjs";
 
 const app = express();
 
@@ -163,26 +161,14 @@ app.post("/ECPay", (req, res) => {
 
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   try {
-    const data = req.body;
-    console.log("req.body", req.body);
-    console.log("後端回傳的data", data);
-    const data2 = { ...req.body };
-    console.log("後端回傳的data2", data2);
-
-    const { CheckMacValue } = req.body;
-    delete data.CheckMacValue; // 此段不驗證
-
-    const create = new ecpay_payment(options);
-    const checkValue = create.payment_client.helper.gen_chk_mac_value(data);
-    console.log(
-      "確認交易正確性：",
-      CheckMacValue === checkValue,
-      CheckMacValue,
-      checkValue
-    );
-    query_trade_info(data);
-
-    res.status(200).send("OK");
+    const data = { ...req.body };
+    if (gen_chk_mac_value(data)) {
+      query_trade_info(data);
+      res.status(200).send("OK");
+    }else{
+      console.log("驗證失敗")
+    }
+    
   } catch (error) {
     console.log("這裡錯", error);
   }
