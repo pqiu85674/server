@@ -174,8 +174,8 @@ app.post(
           console.log("query_trade_info success", result);
           const orderInfo = handleProduct(result.order);
           console.log("orderInfo", orderInfo);
-          orderInfo.products.forEach((product) => {
-            deleteShopCar(orderInfo.CustomField1, product.productId);
+          orderInfo.products.forEach(async (product) => {
+            await deleteShopCar(orderInfo.CustomField1, product.productId);
           });
         } else {
           return res.status(500).send("伺服器發生錯誤");
