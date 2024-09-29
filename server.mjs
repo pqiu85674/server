@@ -191,7 +191,7 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
 });
 
 // 用戶交易完成後的轉址
-router.get("/clientReturn", (req, res) => {
+app.get("/clientReturn", (req, res) => {
   console.log("clientReturn req.body:", req.body);
   console.log("clientReturn req.query:", req.query);
 
