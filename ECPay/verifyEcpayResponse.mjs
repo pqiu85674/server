@@ -6,7 +6,7 @@ function verifyEcpayResponse(data) {
 
   const create = new ecpay_payment(options);
 
-  const isValid = create.payment_client.aio_check_out_verify_mac(data);
+  const isValid = create.payment_client.verify_mac(data);
   console.log("isValid", isValid);
   if (isValid) {
     console.log("CheckMacValue 驗證通過");
