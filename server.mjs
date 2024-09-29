@@ -166,17 +166,22 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
     console.log("req.body", req.body);
     console.log("後端回傳的data", data);
 
-    const response = verifyEcpayResponse(data);
+    // const response = verifyEcpayResponse(data);
 
-    if (response.status === "success") {
+    // if (response.status === "success") {
+    //   query_trade_info(data);
+    //   //這裡做刪除shopCar裡面的資料並且新增到order當中
+    //   console.log("交易成功");
+    //   res.status(200).send("OK");
+    // } else {
+    //   console.log("交易失敗");
+    //   res.status(400).send("Invalid CheckMacValue");
+    // }
+
       query_trade_info(data);
-      //這裡做刪除shopCar裡面的資料並且新增到order當中
-      console.log("交易成功");
+
       res.status(200).send("OK");
-    } else {
-      console.log("交易失敗");
-      res.status(400).send("Invalid CheckMacValue");
-    }
+
   } catch (error) {
     console.log("這裡錯", error);
   }
