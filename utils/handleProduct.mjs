@@ -1,4 +1,6 @@
-export function handleProduct(data) {
+import ecpay_payment from "ecpay-aio-node";
+
+function handleProduct(data) {
   const array = data.split("&");
 
   const object = {};
@@ -33,3 +35,5 @@ export function handleProduct(data) {
   });
   return object;
 }
+
+export default handleProduct;
