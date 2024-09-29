@@ -1,7 +1,7 @@
 import ecpay_payment from "ecpay-aio-node";
 import options from "./options.mjs";
 
-function ECPay(order) {
+function ECPay(order, userUid) {
   const { HOST } = process.env;
 
   const MerchantTradeDate = new Date().toLocaleString("zh-TW", {
@@ -31,6 +31,7 @@ function ECPay(order) {
     ItemName: ItemName.join(","),
     ReturnURL: `${HOST}/return`,
     ClientBackURL: `${HOST}/clientReturn`,
+    CustomField1: userUid,
   };
 
   const create = new ecpay_payment(options);

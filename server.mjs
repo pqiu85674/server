@@ -154,8 +154,8 @@ app.patch("/updateShopCar", async (req, res) => {
 });
 
 app.post("/ECPay", (req, res) => {
-  const { order } = req.body;
-  const html = ECPay(order);
+  const { order, userUid } = req.body;
+  const html = ECPay(order, userUid);
   res.send(html);
 });
 
@@ -164,10 +164,16 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
     const data = { ...req.body };
     console.log("------------------------------------------", data);
     if (gen_chk_mac_value(data)) {
-      query_trade_info(data);
+      const result = query_trade_info(data);
+      if (result.status === "success") {
+        console.log("query_trade_info success", result);
+        // deleteShopCar();
+      } else {
+        return res.status(500).send("伺服器發生錯誤");
+      }
       res.status(200).send("OK");
     } else {
-      console.log("驗證失敗");
+      console.log("CheckMacValue 驗證失敗");
     }
   } catch (error) {
     console.log("這裡錯", error);
@@ -176,10 +182,7 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
-  console.log("clientReturn", req);
-  console.log("clientReturn body", req.body);
   const redirectUrl = `${process.env.CLIENT}/clientReturn`;
-
   // 重新導向至前端頁面
   res.redirect(redirectUrl);
 });

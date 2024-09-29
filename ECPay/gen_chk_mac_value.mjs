@@ -8,13 +8,12 @@ function gen_chk_mac_value(data) {
   delete data.CheckMacValue; // 此段不驗證
 
   const create = new ecpay_payment(options);
-  const checkValue = create.payment_client.helper.gen_chk_mac_value(data);
-  console.log(
-    "確認交易正確性：",
-    CheckMacValue === checkValue,
-    CheckMacValue,
-    checkValue
-  );
-  return CheckMacValue === checkValue;
+  try {
+    const checkValue = create.payment_client.helper.gen_chk_mac_value(data);
+    return CheckMacValue === checkValue;
+  } catch (error) {
+    console.log("生成 CheckMacValue 失敗:", error);
+    return false;
+  }
 }
 export default gen_chk_mac_value;
