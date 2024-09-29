@@ -8,7 +8,6 @@ async function shopCar(
   size = null,
   kind = null
 ) {
-  console.log(userUid, productId, count);
   try {
     // 定義要更新的文件路徑 (users/{userName})
     const userRef = db.collection("users").doc(userUid);

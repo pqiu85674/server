@@ -116,7 +116,6 @@ app.get("/addProducts", async (req, res) => {
 app.post("/signUp", async (req, res) => {
   const { email, password, userName } = req.body;
   const result = await signUp(userName, email, password);
-  console.log("signUp", result);
   res.json(result);
 });
 
@@ -138,26 +137,20 @@ app.post("/signIn", async (req, res) => {
 });
 
 app.post("/customerShopCar", async (req, res) => {
-  console.log("----------------");
   const { userUid } = req.body;
-  console.log(userUid);
   const result = await CustomerShopCar(userUid);
   res.json(result);
 });
 
 app.delete("/deleteShopCar", async (req, res) => {
   const { userUid, product } = req.body;
-  console.log("deleteShopCar", req.body);
-  console.log("deleteShopCar", userUid, product);
   const result = await deleteShopCar(userUid, product);
   res.json(result);
 });
 
 app.patch("/updateShopCar", async (req, res) => {
   const { userUid, productId, price, count, size, kind } = req.body;
-  console.log("/updateShopCar", req.body);
   const result = await shopCar(userUid, productId, price, count, size, kind);
-  console.log("updateShopCar", result);
   res.json(result);
 });
 
@@ -173,11 +166,12 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   const response = verifyEcpayResponse(data);
 
   if (response.status === "success") {
-    
     query_trade_info(data);
     //這裡做刪除shopCar裡面的資料並且新增到order當中
+    console.log("交易成功");
     res.status(200).send("OK");
   } else {
+    console.log("交易失敗");
     res.status(400).send("Invalid CheckMacValue");
   }
 });

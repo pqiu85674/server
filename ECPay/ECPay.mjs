@@ -23,9 +23,6 @@ function ECPay(order) {
     return `${product.productId} X ${product.count} (${product.price})`;
   });
 
-  console.log("TotalAmount", TotalAmount);
-  console.log("ItemName", ItemName);
-
   let base_param = {
     MerchantTradeNo: TradeNo,
     MerchantTradeDate,

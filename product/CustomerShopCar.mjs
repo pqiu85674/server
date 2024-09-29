@@ -12,7 +12,6 @@ async function CustomerShopCar(userUid) {
     if (user.id === userUid) {
       if (typeof user.shopCar === "object") {
         Object.values(user.shopCar).forEach((item) => {
-          console.log(item);
           queryProduct.forEach((doc) => {
             if (doc.id === item.productId) {
               result.push(item);
@@ -22,8 +21,6 @@ async function CustomerShopCar(userUid) {
       }
     }
   });
-
-  console.log("result", result);
   return result;
 }
 
