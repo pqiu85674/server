@@ -163,8 +163,10 @@ app.post("/ECPay", (req, res) => {
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   try {
     const data = req.body;
-    console.log("...req.body", ...req.body);
+    console.log("...req.body", req.body);
     console.log("後端回傳的data", data);
+    const data2 = { ...req.body };
+    console.log("後端回傳的data2", data2);
 
     const { CheckMacValue } = req.body;
     delete data.CheckMacValue; // 此段不驗證
