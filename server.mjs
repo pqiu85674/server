@@ -174,9 +174,12 @@ app.post(
           console.log("query_trade_info success", result);
           const orderInfo = handleProduct(result.order);
           console.log("orderInfo", orderInfo);
-          const deletePromises = orderInfo.products.map((product) => {
+          const deletePromises = orderInfo.products.map(async (product) => {
             console.log(product);
-            return deleteShopCar(orderInfo.CustomField1, product.productId);
+            return await deleteShopCar(
+              orderInfo.CustomField1,
+              product.productId
+            );
           });
           await Promise.all(deletePromises);
         } else {
