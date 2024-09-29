@@ -163,7 +163,12 @@ app.post("/ECPay", (req, res) => {
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   const data = req.body;
   console.log("後端回傳的data", data);
-  const response = verifyEcpayResponse(data);
+  const response = {};
+  try {
+    response = verifyEcpayResponse(data);
+  } catch (error) {
+    console.log("這裡錯", error);
+  }
 
   if (response.status === "success") {
     query_trade_info(data);
