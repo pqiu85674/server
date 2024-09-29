@@ -176,7 +176,8 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
-  console.log("clientReturn", res);
+  console.log("clientReturn", req);
+  console.log("clientReturn body", req.body);
   const redirectUrl = `${process.env.CLIENT}/clientReturn`;
 
   // 重新導向至前端頁面
