@@ -1,7 +1,8 @@
 import ecpay_payment from "ecpay-aio-node";
 const { MERCHANTID, HASHKEY, HASHIV, HOST } = process.env;
 
-function ECPayGet() {
+function ECPay(order) {
+  console.log("order", order);
   console.log("MERCHANTID", MERCHANTID);
   console.log("HASHKEY", HASHKEY);
   console.log("HASHIV", HASHIV);
@@ -18,12 +19,22 @@ function ECPayGet() {
   });
 
   const TradeNo = "test" + new Date().getTime();
+  const TotalAmount = order.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.price * currentValue.count;
+  }, 0);
+  const ItemName = order.map((product) => {
+    return `${product.productId} X ${product.count} (${product.price})`;
+  });
+
+  console.log("TotalAmount", TotalAmount);
+  console.log("ItemName", ItemName);
+
   let base_param = {
     MerchantTradeNo: TradeNo,
     MerchantTradeDate,
-    TotalAmount: "100",
+    TotalAmount: TotalAmount,
     TradeDesc: "測試交易描述",
-    ItemName: "測試商品等",
+    ItemName: ItemName.join(","),
     ReturnURL: `${HOST}/return`,
     ClientBackURL: `${HOST}/clientReturn`,
   };
@@ -41,4 +52,4 @@ function ECPayGet() {
   return html;
 }
 
-export default ECPayGet;
+export default ECPay;

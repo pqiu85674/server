@@ -9,8 +9,9 @@ import getProducts from "./product/getProducts.mjs";
 import shopCar from "./product/shopCar.mjs";
 import CustomerShopCar from "./product/CustomerShopCar.mjs";
 import deleteShopCar from "./product/deleteShopCar.mjs";
-import ECPayGet from "./ECPay/ECPayGet.mjs";
+import ECPayGet from "./ECPay/ECPay.mjs";
 import verifyEcpayResponse from "./ECPay/verifyEcpayResponse.mjs";
+import ECPay from "./ECPay/ECPay.mjs";
 
 const app = express();
 
@@ -159,8 +160,9 @@ app.patch("/updateShopCar", async (req, res) => {
   res.json(result);
 });
 
-app.get("/", (req, res) => {
-  const html = ECPayGet();
+app.post("/ECPay", (req, res) => {
+  const { order } = req.body;
+  const html = ECPay(order);
   res.send(html);
 });
 
