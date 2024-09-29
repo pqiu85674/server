@@ -1,7 +1,7 @@
 import ecpay_payment from "ecpay-aio-node";
 import options from "./options.mjs";
 
-function verifyEcpayResponse() {
+function verifyEcpayResponse(data) {
   console.log("綠界金流回傳資料 data:", data);
 
   const create = new ecpay_payment(options);
