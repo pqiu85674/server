@@ -2,11 +2,6 @@ import ecpay_payment from "ecpay-aio-node";
 const { MERCHANTID, HASHKEY, HASHIV, HOST } = process.env;
 
 function ECPay(order) {
-  console.log("order", order);
-  console.log("MERCHANTID", MERCHANTID);
-  console.log("HASHKEY", HASHKEY);
-  console.log("HASHIV", HASHIV);
-  console.log("HOST", HOST);
   const MerchantTradeDate = new Date().toLocaleString("zh-TW", {
     year: "numeric",
     month: "2-digit",

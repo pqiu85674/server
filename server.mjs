@@ -168,9 +168,12 @@ app.post("/ECPay", (req, res) => {
 
 app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
   const data = req.body;
+  
   const response = verifyEcpayResponse(data);
 
   if (response.status === "success") {
+
+    //這裡做刪除shopCar裡面的資料並且新增到order當中
     res.status(200).send("OK");
   } else {
     res.status(400).send("Invalid CheckMacValue");
@@ -179,13 +182,7 @@ app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
-  console.log("clientReturn req.body:", req.body);
-  console.log("clientReturn req.query:", req.query);
-
-  // 假設前端的路徑是 /payment-success，並且你希望將 query 參數傳遞給前端
-  const redirectUrl = `${process.env.CLIENT}/clientReturn?${new URLSearchParams(
-    req.query
-  ).toString()}`;
+  const redirectUrl = `${process.env.CLIENT}/clientReturn`;
 
   // 重新導向至前端頁面
   res.redirect(redirectUrl);
