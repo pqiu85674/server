@@ -7,7 +7,7 @@ function query_trade_info(data) {
 
   let base_param = { MerchantTradeNo };
   const query = new ecpay_payment(options);
-  const order = query.query_client.query_trade_info((parameters = base_param));
+  const order = query.query_client.query_trade_info(base_param);
   console.log("成功撈取當筆交易資料:", order);
   return { status: "success", order };
 }
