@@ -181,6 +181,7 @@ app.post(
               product.productId
             );
           });
+          console.log("deletePromises", deletePromises);
           await Promise.all(deletePromises);
         } else {
           return res.status(500).send("伺服器發生錯誤");
