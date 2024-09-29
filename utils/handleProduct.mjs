@@ -30,7 +30,7 @@ function handleProduct(data) {
         // console.log(item);
         products.push(hadleData(item.split("=")[1]));
       }
-      object.product = products;
+      object.products = products;
     }
   });
   return object;
