@@ -1,4 +1,6 @@
+import ecpay_payment from "ecpay-aio-node";
 import options from "./options.mjs";
+
 function query_trade_info(data) {
   console.log("成功進入query_trade_info function");
   const { MerchantTradeNo } = data;
