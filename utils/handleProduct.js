@@ -1,4 +1,4 @@
-function handleProduct(data) {
+export function handleProduct(data) {
   const array = data.split("&");
 
   const object = {};
@@ -33,4 +33,3 @@ function handleProduct(data) {
   });
   return object;
 }
-export default handleProduct;
