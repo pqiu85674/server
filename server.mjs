@@ -160,11 +160,6 @@ app.post("/ECPay", (req, res) => {
   res.send(html);
 });
 
-
-
-
-
-
 function handleProduct(data) {
   const array = data.split("&");
 
@@ -201,31 +196,32 @@ function handleProduct(data) {
   return object;
 }
 
-
-
-
-app.post("/return", express.urlencoded({ extended: false }), (req, res) => {
-  try {
-    const data = { ...req.body };
-    if (gen_chk_mac_value(data)) {
-      const result = query_trade_info(data);
-      console.log("result", result);
-      console.log("----------------------------------------------------");
-      if (result.status === "success") {
-        console.log("query_trade_info success", result);
-        const orderInfo = handleProduct(result.order);
-        console.log("orderInfo", orderInfo);
+app.post(
+  "/return",
+  express.urlencoded({ extended: false }),
+  async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (gen_chk_mac_value(data)) {
+        const result = await query_trade_info(data);
+        console.log("result", result);
+        console.log("----------------------------------------------------");
+        if (result.status === "success") {
+          console.log("query_trade_info success", result);
+          const orderInfo = handleProduct(result.order);
+          console.log("orderInfo", orderInfo);
+        } else {
+          return res.status(500).send("伺服器發生錯誤");
+        }
+        res.status(200).send("OK");
       } else {
-        return res.status(500).send("伺服器發生錯誤");
+        console.log("CheckMacValue 驗證失敗");
       }
-      res.status(200).send("OK");
-    } else {
-      console.log("CheckMacValue 驗證失敗");
+    } catch (error) {
+      console.log("這裡錯", error);
     }
-  } catch (error) {
-    console.log("這裡錯", error);
   }
-});
+);
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
