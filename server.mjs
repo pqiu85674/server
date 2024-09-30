@@ -13,6 +13,7 @@ import ECPay from "./ECPay/ECPay.mjs";
 import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
 import handleProduct from "./utils/handleProduct.mjs";
+import moveShopCarToOrder from "./product/moveShopCartoOrder.mjs";
 
 const app = express();
 
@@ -174,15 +175,12 @@ app.post(
           console.log("query_trade_info success", result);
           const orderInfo = handleProduct(result.order);
           console.log("orderInfo", orderInfo);
-          const deletePromises = orderInfo.products.map(async (product) => {
-            console.log(product);
-            return product;
-            // return await deleteShopCar(
-            //   orderInfo.CustomField1,
-            //   product.productId
-            // );
-          });
-          console.log("deletePromises", deletePromises);
+          moveShopCarToOrder(
+            orderInfo.CustomField1,
+            orderInfo.TradeNo,
+            orderInfo.products,
+            orderInfo.TradeDate,
+          );
         } else {
           return res.status(500).send("伺服器發生錯誤");
         }
