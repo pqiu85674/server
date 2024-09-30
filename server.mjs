@@ -14,7 +14,7 @@ import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
 import handleProduct from "./utils/handleProduct.mjs";
 import moveShopCarToOrder from "./product/moveShopCarToOrder.mjs";
-import order from "./product/order";
+import order from "./product/order.mjs";
 
 const app = express();
 
