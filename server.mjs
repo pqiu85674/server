@@ -146,6 +146,7 @@ app.post("/customerShopCar", async (req, res) => {
 
 app.post("/order", async (req, res) => {
   const { userUid } = req.body;
+  console.log("userUid", userUid);
   const result = await order(userUid);
   res.json(result);
 });
