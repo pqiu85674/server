@@ -148,6 +148,7 @@ app.post("/order", async (req, res) => {
   const { userUid } = req.body;
   console.log("userUid", userUid);
   const result = await order(userUid);
+  console.log("result", result);
   res.json(result);
 });
 app.delete("/deleteShopCar", async (req, res) => {

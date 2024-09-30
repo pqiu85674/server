@@ -15,7 +15,7 @@ async function order(userUid) {
     console.log("order", order);
     return { status: "success", order };
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
     return { status: "failure", error };
   }
 }
