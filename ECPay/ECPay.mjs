@@ -19,16 +19,18 @@ function ECPay(order, userUid) {
   const TotalAmount = order.reduce((accumulator, currentValue) => {
     return accumulator + currentValue.price * currentValue.count;
   }, 0);
-  const ItemName = order.map((product) => {
-    return `${product.productId} X ${product.count} (${product.price})`;
-  });
+  const ItemName = order
+    .map((product) => {
+      return `${product.productId}`; // X ${product.count} (${product.price})
+    })
+    .join(",");
 
   let base_param = {
     MerchantTradeNo: TradeNo,
     MerchantTradeDate,
     TotalAmount: TotalAmount,
     TradeDesc: "測試交易描述",
-    ItemName: ItemName.join(","),
+    ItemName: ItemName,
     ReturnURL: `${HOST}/return`,
     ClientBackURL: `${HOST}/clientReturn`,
     CustomField1: userUid,

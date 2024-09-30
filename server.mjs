@@ -176,13 +176,13 @@ app.post(
           console.log("orderInfo", orderInfo);
           const deletePromises = orderInfo.products.map(async (product) => {
             console.log(product);
-            return await deleteShopCar(
-              orderInfo.CustomField1,
-              product.productId
-            );
+            return product;
+            // return await deleteShopCar(
+            //   orderInfo.CustomField1,
+            //   product.productId
+            // );
           });
           console.log("deletePromises", deletePromises);
-          await Promise.all(deletePromises);
         } else {
           return res.status(500).send("伺服器發生錯誤");
         }
