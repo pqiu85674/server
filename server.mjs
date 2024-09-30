@@ -14,6 +14,7 @@ import gen_chk_mac_value from "./ECPay/gen_chk_mac_value.mjs";
 import query_trade_info from "./ECPay/query_trade_info.mjs";
 import handleProduct from "./utils/handleProduct.mjs";
 import moveShopCarToOrder from "./product/moveShopCarToOrder.mjs";
+import order from "./product/order";
 
 const app = express();
 
@@ -143,6 +144,11 @@ app.post("/customerShopCar", async (req, res) => {
   res.json(result);
 });
 
+app.post("/order", async (req, res) => {
+  const { userUid } = req.body;
+  const result = await order(userUid);
+  res.json(result);
+});
 app.delete("/deleteShopCar", async (req, res) => {
   const { userUid, product } = req.body;
   const result = await deleteShopCar(userUid, product);
