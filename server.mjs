@@ -175,11 +175,11 @@ app.post(
           console.log("query_trade_info success", result);
           const orderInfo = handleProduct(result.order);
           console.log("orderInfo", orderInfo);
-          moveShopCarToOrder(
+          await moveShopCarToOrder(
             orderInfo.CustomField1,
             orderInfo.TradeNo,
             orderInfo.products,
-            orderInfo.TradeDate,
+            orderInfo.TradeDate
           );
         } else {
           return res.status(500).send("伺服器發生錯誤");
