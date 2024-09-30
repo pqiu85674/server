@@ -20,7 +20,8 @@ async function moveShopCarToOrder(userUid, TradeNo, productIds, TradeDate) {
     });
     console.log("已刪除指定的購物車內容");
     let order = userData.order || {};
-    order[TradeNo] = { ...orderInfo, TradeDate };
+    console.log("orderInfo", orderInfo);
+    order[TradeNo] = { orderInfo, TradeDate };
     // 將更新後的購物車資料寫回 Firestore
     await queryUser.set({ order }, { merge: true });
     console.log("訂單已新增");
