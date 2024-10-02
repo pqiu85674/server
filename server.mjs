@@ -21,7 +21,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const whitelist = ["http://localhost:3000", "http://localhost:3001"];
+const whitelist = ["http://localhost:3000", "http://localhost:3001","https://shopease-wnka.onrender.com"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -81,9 +81,9 @@ app.get("/addProducts", async (req, res) => {
       "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/clothes%2Fwhite.png?alt=media&token=8198acc1-5ad7-46f9-8cae-1a10773ab46b",
     ],
     price: 399,
-    title: "t-shirt 純棉素T 白色上衣 黑色上衣 灰色上衣",
+    title: "衣服 t-shirt 純棉素T 白色上衣 黑色上衣 灰色上衣",
     alt: ["黑色素T", "灰色素T", "白色素T"],
-    size: ["XL", "L", "M", "S", "XS"],
+    size: ["M", "L", "XL", "2XL"],
     kind: ["黑色素T", "灰色素T", "白色素T"],
   };
 
@@ -110,8 +110,104 @@ app.get("/addProducts", async (req, res) => {
     size: [],
   };
 
+  const nike = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Nike%2FblackShoe.png?alt=media&token=7825b33d-17c8-4af0-b5b1-4c4f88a93301",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Nike%2FblueShoe.png?alt=media&token=030cf076-e206-42e6-89da-59a07f8c5b60",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Nike%2FgreenShoe.png?alt=media&token=26392e00-0597-4fbc-a56b-c41edbeb9562",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Nike%2FredShoe.png?alt=media&token=cff4334f-16f1-4434-96dc-ed2af4e2a829",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Nike%2FwhiteShoe.png?alt=media&token=f47ddc10-0d61-4fc4-94d9-836481fb533d",
+    ],
+    price: 3400,
+    title: "Nike Dunk 低筒 Retro 鞋子 暢銷鞋款",
+    alt: ["黑色", "藍色", "綠色", "紅色", "白色"],
+    kind: ["黑色", "藍色", "綠色", "紅色", "白色"],
+    size: ["CM28", "CM28.5", "CM29", "CM29.5", "CM30"],
+  };
+
+  const pants = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/pants%2FbrowPants.png?alt=media&token=a241a812-9e75-436c-b2f9-3a6a623a073b",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/pants%2FblackPants.png?alt=media&token=4365667d-9768-499e-9384-413884370fcc",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/pants%2FblackSuit.png?alt=media&token=989dae89-9303-4ac7-a97b-4b8d91a93e3d",
+    ],
+    price: 520,
+    title: "透涼冰爽絲素色腰鬆緊直筒褲(男款) 褲子 素色",
+    alt: ["咖啡色褲子", "黑色褲子", "黑色西裝"],
+    kind: ["咖啡色", "黑色"],
+    size: ["M", "L", "XL", "2XL"],
+  };
+
+  const jeans = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/jeans%2Fblue.png?alt=media&token=e070b42e-9b6c-4993-8db0-222d803dce01",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/jeans%2FhightBlue.png?alt=media&token=f53776e1-19b8-4c02-b3ba-0fdc847a5ac5",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/jeans%2FdarkBlue.png?alt=media&token=b22bb0f8-2bfe-4f93-998b-2d5d479172c5",
+    ],
+    price: 3489,
+    title: "中腰舒適直筒牛仔褲 牛仔褲 男性",
+    alt: ["藍色牛仔褲", "淺藍色牛仔褲", "深藍色牛仔褲"],
+    kind: ["藍色", "淺藍", "深藍"],
+    size: ["M", "L", "XL", "2XL"],
+  };
+  const backpack = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/backpack%2FgrayBackpack.png?alt=media&token=1296c7ca-e3c9-4e38-b268-82cfa42d77c2",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/backpack%2FdarkGrayBackPack.png?alt=media&token=cc1eaef7-2e6b-4afb-ab47-fe695a5b1997",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/backpack%2FdarkGreenBackPack.png?alt=media&token=4f00dc88-4234-4aa5-be8b-b5f07b828f2b",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/backpack%2FbackpackBackSide.png?alt=media&token=5dab6f93-9714-4a63-800b-920d4a0b63b7",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/backpack%2FbackpackInSide.png?alt=media&token=b768c504-ee22-4717-bb79-bdd7fadeb88b",
+    ],
+    price: 899,
+    title: "素色後背包",
+    alt: ["灰色後背包", "深灰色後背包", "墨綠色後背包", "背包背面", "背包內部"],
+    kind: ["灰色", "深灰", "墨綠"],
+    size: [],
+  };
+  const boots = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Boots%2FMilkTeaBeigeBoots.png?alt=media&token=a86195fe-a850-4cbd-9372-8dd5abcae712",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Boots%2FRetroBrownBoots.png?alt=media&token=a49053ca-5fb0-4e58-967a-8ae5744970d5",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Boots%2FStylishBlackBoots.png?alt=media&token=4b19f990-6e66-4439-bcb3-8b372259d9a3",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Boots%2FTexturedVelvetBlackBoots.png?alt=media&token=7c3cece3-e8e7-411e-9659-3ec2a5883c8c",
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Boots%2FVanillaOff-WhiteBoots.png?alt=media&token=6b0d9d92-931d-4312-88ac-823b3d045db4",
+    ],
+    price: 1258,
+    title: "素面方頭高跟瘦瘦靴",
+    alt: ["奶茶杏", "復古咖", "時尚黑", "質感黑絨", "香草米白"],
+    kind: ["奶茶杏", "復古咖", "時尚黑", "質感黑絨", "香草米白"],
+    size: [],
+  };
+  const AirPodsPro = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/AirPodsPro2%2FAirPodsPro2.png?alt=media&token=98d38d62-bdcb-43e2-9f05-a61b7c146341",
+    ],
+    price: 7490,
+    title: "AirPods Pro 2",
+    alt: ["AirPods Pro 2"],
+    kind: [],
+    size: [],
+  };
+  const HydratingEnergyCC_Cream = {
+    src: [
+      "https://firebasestorage.googleapis.com/v0/b/react-908cf.appspot.com/o/Hydrating%20Energy%20CC%20Cream%2FHydratingEnergyCC_Cream.png?alt=media&token=4ca0375e-6bce-4449-b654-d7963dfa66a9",
+    ],
+    price: 2250,
+    title: "香奈兒超保水能量CC霜",
+    alt: ["香奈兒超保水能量CC霜"],
+    kind: [],
+    size: [],
+  };
+  const example = {
+    src: [],
+    price: 0,
+    title: "",
+    alt: [],
+    kind: [],
+    size: [],
+  };
   // 使用範例
-  const result = await addProducts("clothes", clothes);
+  const result = await addProducts("HydratingEnergyCC_Cream", HydratingEnergyCC_Cream);
   res.json(result);
 });
 
