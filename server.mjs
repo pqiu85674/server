@@ -21,7 +21,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const whitelist = ["http://localhost:3000", "http://localhost:3001","https://pqiu85674.github.io"];
+const whitelist = ["https://pqiu85674.github.io"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -300,7 +300,7 @@ app.post(
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
-  const redirectUrl = `${process.env.CLIENT}/clientReturn`;
+  const redirectUrl = `${process.env.CLIENT}/clientreturn`;
   // 重新導向至前端頁面
   res.redirect(redirectUrl);
 });
