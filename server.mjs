@@ -21,7 +21,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const whitelist = ["http://localhost:3000", "http://localhost:3001","https://pqiu85674.github.io/side-project"];
+const whitelist = ["http://localhost:3000", "http://localhost:3001","https://pqiu85674.github.io"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
