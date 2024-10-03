@@ -300,7 +300,7 @@ app.post(
 
 // 用戶交易完成後的轉址
 app.get("/clientReturn", (req, res) => {
-  const redirectUrl = `${process.env.CLIENT}/clientreturn`;
+  const redirectUrl = `${process.env.CLIENT}/#/clientreturn`;
   // 重新導向至前端頁面
   res.redirect(redirectUrl);
 });
