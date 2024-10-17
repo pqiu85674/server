@@ -4,16 +4,7 @@ import options from "./options.mjs";
 function ECPay(order, userUid) {
   const { HOST } = process.env;
 
-  const MerchantTradeDate = new Date().toLocaleString("zh-TW", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "UTC",
-  });
+  const MerchantTradeDate = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
   const TradeNo = "test" + new Date().getTime();
   const TotalAmount = order.reduce((accumulator, currentValue) => {
